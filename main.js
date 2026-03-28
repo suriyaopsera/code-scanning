@@ -1,3 +1,22 @@
+const express = require('express');
+const app = express();
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+app.get('/', (req, res) => {
+  const name = escapeHtml(req.query.name);
+  res.send(`<h1>Hello, ${name}!</h1>`);
+});
+
+app.listen(3000);
 // This is a test file 1
 const mysql = require('mysql');
 const connection = mysql.createConnection({
